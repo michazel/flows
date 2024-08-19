@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "701185604655",
+    "project_id": "flows-aac82",
+    "storage_bucket": "flows-aac82.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701185604655:android:b5b5bb75757592f4195ada",
+        "android_client_info": {
+          "package_name": "com.contoh.flows"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCgv9jBvt2u4Fs1lZr3Qmw2RUOi_NeZgVY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
