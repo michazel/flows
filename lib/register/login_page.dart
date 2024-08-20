@@ -1,7 +1,9 @@
+import 'package:flows/register/bloc/pass_verif_bloc.dart';
 import 'package:flows/register/email_auth.dart';
 import 'package:flows/register/google_auth.dart';
 import 'package:flows/register/register_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -144,7 +146,10 @@ class _LoginPageState extends State<LoginPage> {
                 Navigator.push(  
                   context, 
                   MaterialPageRoute(  
-                    builder: (context) => const RegisterPage()
+                    builder: (context) => BlocProvider(
+                      create: (context) => PassVerifBloc(),
+                      child: const RegisterPage(),
+                    )
                   )
                 );
               },
