@@ -24,3 +24,17 @@ class NgetikVerifPass extends PassVerifEvent {
     required super.verifPass
   }) : super();
 }
+
+class NutupPass extends PassVerifEvent {
+  const NutupPass({
+    required super.password,
+    required super.verifPass
+  }) : super();
+}
+
+class NutupVerifPass extends PassVerifEvent {
+  const NutupVerifPass({
+    required super.password,
+    required super.verifPass
+  }) : super();
+}

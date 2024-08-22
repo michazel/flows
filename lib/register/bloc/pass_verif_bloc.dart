@@ -11,6 +11,8 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
     angka: false,
     besar: false,
     kembar: false,
+    tutupPass: true,
+    tutupVerifPass: true,
     password: "",
     verifPass: "",
     color: Colors.black
@@ -26,6 +28,8 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
         angka: hasAngka,  
         besar: hasBesar,
         kembar: isKembar,
+        tutupPass: state.tutupPass,
+        tutupVerifPass: state.tutupVerifPass,
         password: event.password,
         verifPass: event.verifPass,
         color: (isKembar) ? Colors.black : Colors.amber
@@ -40,9 +44,43 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
         angka: state.angka,
         besar: state.besar,
         kembar: isKembar,
+        tutupPass: state.tutupPass,
+        tutupVerifPass: state.tutupVerifPass,
         password: event.password,
         verifPass: event.verifPass,
         color: (isKembar) ? Colors.black : Colors.amber
+      ));
+    });
+
+    on<NutupPass>((event, emit) {
+      final bool isTutupPass = (state.tutupPass) ? false : true;
+
+      emit(PassVerifInitial(  
+        panjang: state.panjang, 
+        angka: state.angka,
+        besar: state.besar,
+        kembar: state.kembar,
+        tutupPass: isTutupPass,
+        tutupVerifPass: state.tutupVerifPass,
+        password: event.password,
+        verifPass: event.verifPass,
+        color: (state.kembar) ? Colors.black : Colors.amber
+      ));
+    });
+
+    on<NutupVerifPass>((event, emit) {
+      final bool isTutupVerifPass = (state.tutupVerifPass) ? false : true;
+
+      emit(PassVerifInitial(  
+        panjang: state.panjang, 
+        angka: state.angka,
+        besar: state.besar,
+        kembar: state.kembar,
+        tutupPass: state.tutupPass,
+        tutupVerifPass: isTutupVerifPass,
+        password: event.password,
+        verifPass: event.verifPass,
+        color: (state.kembar) ? Colors.black : Colors.amber
       ));
     });
   }

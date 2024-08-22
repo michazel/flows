@@ -93,9 +93,19 @@ class _RegisterPageState extends State<RegisterPage> {
                       border: OutlineInputBorder( 
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      contentPadding: const EdgeInsets.all(10)
+                      contentPadding: const EdgeInsets.all(10),
+                      suffixIcon: IconButton(  
+                        onPressed: () {
+                          bloc.add(NutupPass( 
+                            password: state.password,
+                            verifPass: state.verifPass
+                          ));
+                        },
+                        icon: (state.tutupPass) ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
+                      )
                     ),
                     style: Theme.of(context).textTheme.bodySmall,
+                    obscureText: state.tutupPass,
                   ),
                   const SizedBox(  
                     height: 10,
@@ -114,6 +124,15 @@ class _RegisterPageState extends State<RegisterPage> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       contentPadding: const EdgeInsets.all(10),
+                      suffixIcon: IconButton(  
+                        onPressed: () {
+                          bloc.add(NutupVerifPass( 
+                            password: state.password,
+                            verifPass: state.verifPass
+                          ));
+                        },
+                        icon: (state.tutupVerifPass) ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
+                      ),
                       focusedBorder: OutlineInputBorder(  
                         borderRadius: BorderRadius.circular(12),
                         borderSide: BorderSide(  
@@ -128,6 +147,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       )
                     ),
                     style: Theme.of(context).textTheme.bodySmall,
+                    obscureText: state.tutupVerifPass,
                   ),
                   const SizedBox(  
                     height: 10,

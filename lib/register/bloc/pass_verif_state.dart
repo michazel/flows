@@ -6,6 +6,8 @@ sealed class PassVerifState {
   final bool angka;
   final bool besar;
   final bool kembar;
+  final bool tutupPass;
+  final bool tutupVerifPass;
   final String password;
   final String verifPass;
   final Color color;
@@ -15,6 +17,8 @@ sealed class PassVerifState {
     required this.panjang, 
     required this.besar,
     required this.kembar,
+    required this.tutupPass,
+    required this.tutupVerifPass,
     required this.password,
     required this.verifPass,
     required this.color
@@ -27,6 +31,8 @@ final class PassVerifInitial extends PassVerifState {
     required super.panjang, 
     required super.besar,
     required super.kembar,
+    required super.tutupPass,
+    required super.tutupVerifPass,
     required super.password,
     required super.verifPass,
     required super.color
