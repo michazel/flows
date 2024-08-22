@@ -19,15 +19,16 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
       final bool isPanjang = event.password.length >= 8;
       final bool hasAngka = RegExp(r'\d').hasMatch(event.password);
       final bool hasBesar = RegExp(r'[A-Z]').hasMatch(event.password);
+      final bool isKembar = event.password == event.verifPass;
 
       emit(PassVerifInitial(
         panjang: isPanjang, 
         angka: hasAngka,  
         besar: hasBesar,
-        kembar: state.kembar,
+        kembar: isKembar,
         password: event.password,
         verifPass: event.verifPass,
-        color: state.color
+        color: (isKembar) ? Colors.black : Colors.amber
       ));
     });
 
