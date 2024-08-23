@@ -1,4 +1,5 @@
 import 'package:flows/mainPage/analisis_page.dart';
+import 'package:flows/mainPage/log_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -32,9 +33,7 @@ class MainPage extends StatelessWidget {
         body: const TabBarView(  
           children: <Widget>[
             AnalisisPage(),
-            Center(  
-              child: Text("Halo")
-            ),
+            LogPage(),
             Center(  
               child: Text("Halo")
             ),
