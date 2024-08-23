@@ -1,4 +1,5 @@
 import 'package:flows/mainPage/circular_progres.dart';
+import 'package:flows/mainPage/input_page.dart';
 import 'package:flutter/material.dart';
 
 class AnalisisPage extends StatelessWidget {
@@ -60,7 +61,14 @@ class AnalisisPage extends StatelessWidget {
               MediaQuery.of(context).size.height - 30 - 80 - 140
             ),
             child: FloatingActionButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(  
+                  context,
+                  MaterialPageRoute(  
+                    builder: (context) => const InputPage()
+                  )
+                );
+              },
               child: const Icon(Icons.add)
             ),
           )
