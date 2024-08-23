@@ -1,5 +1,6 @@
 import 'package:flows/mainPage/analisis_page.dart';
 import 'package:flows/mainPage/log_page.dart';
+import 'package:flows/mainPage/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {
@@ -34,9 +35,7 @@ class MainPage extends StatelessWidget {
           children: <Widget>[
             AnalisisPage(),
             LogPage(),
-            Center(  
-              child: Text("Halo")
-            ),
+            SettingPage()
           ]
         )
       ),
