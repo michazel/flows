@@ -126,8 +126,8 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             ElevatedButton(  
-              onPressed: () {
-                EmailAuth(  
+              onPressed: () async {
+                await EmailAuth(  
                   email: emailController.text,
                   password: passwordController.text
                 ).signIn(notif, context);
@@ -148,8 +148,8 @@ class _LoginPageState extends State<LoginPage> {
               height: 20,
             ),
             ElevatedButton(  
-              onPressed: () {
-                GoogleAuth().signInAndSignUp(notif, context);
+              onPressed: () async {
+                await GoogleAuth().signInAndSignUp(notif, context);
               },
               child: const Text("Google")
             ),

@@ -14,6 +14,7 @@ class MainPage extends StatelessWidget {
         appBar: AppBar(  
           title: const Text("Flows"),
           backgroundColor: Colors.lightBlue,
+          automaticallyImplyLeading: false,
         ),
         bottomNavigationBar: const TabBar(  
           tabs: <Tab>[

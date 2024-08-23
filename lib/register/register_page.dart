@@ -193,9 +193,10 @@ class _RegisterPageState extends State<RegisterPage> {
                     child: SizedBox(
                       width: MediaQuery.of(context).size.width - 30,
                       child: ElevatedButton(  
-                        onPressed: (state.panjang && state.besar && state.angka && state.kembar) ? () {
+                        onPressed: (state.panjang && state.besar && state.angka && state.kembar) 
+                        ? () async {
                           if(passwordController.text == verifPasswordController.text) {
-                            EmailAuth(  
+                            await EmailAuth(  
                               email: emailController.text,
                               password: passwordController.text
                             ).signUp(notif, context);
@@ -222,8 +223,8 @@ class _RegisterPageState extends State<RegisterPage> {
               height: 20,
             ),
             ElevatedButton(  
-              onPressed: () {
-                GoogleAuth().signInAndSignUp(notif, context);
+              onPressed: () async {
+                await GoogleAuth().signInAndSignUp(notif, context);
               },
               child: const Text("Google")
             ),

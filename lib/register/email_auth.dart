@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flows/mainPage/main_page.dart';
 import 'package:flutter/material.dart';
 
 class EmailAuth {
@@ -8,15 +9,22 @@ class EmailAuth {
 
   const EmailAuth({required this.email, required this.password});
 
-  void signIn(void Function(BuildContext, String) pesan, BuildContext context) async {
+  Future<void> signIn(void Function(BuildContext, String) pesan, BuildContext context) async {
     if(FirebaseAuth.instance.currentUser == null) {
       try {
         await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email, 
           password: password
         );
-        if(!context.mounted) return;
-        pesan(context, "Berasil Login");
+
+        if(context.mounted) {
+          Navigator.push(  
+            context, 
+            MaterialPageRoute(  
+              builder: (context) => const MainPage()
+            )
+          );
+        }
       } on FirebaseAuthException catch (_) {
         if(!context.mounted) return;
         pesan(context, "Ada kesalahan Saat Login");
@@ -26,7 +34,7 @@ class EmailAuth {
     }
   }
 
-  void signUp(void Function(BuildContext, String) pesan, BuildContext context) async {
+  Future<void> signUp(void Function(BuildContext, String) pesan, BuildContext context) async {
     if(FirebaseAuth.instance.currentUser == null) {
       try {
         await FirebaseAuth.instance.createUserWithEmailAndPassword(
@@ -48,6 +56,15 @@ class EmailAuth {
           if(FirebaseAuth.instance.currentUser?.emailVerified ?? false) {
             timer!.cancel();
             poltime.cancel();
+
+            if(context.mounted) {
+              Navigator.push(  
+                context, 
+                MaterialPageRoute(  
+                  builder: (context) => const MainPage()
+                )
+              );
+            }
           } else {
             if(!timer!.isActive) return;
             if(!context.mounted) return;

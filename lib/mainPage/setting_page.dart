@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
@@ -53,7 +55,14 @@ class SettingPage extends StatelessWidget {
               style: ElevatedButton.styleFrom(  
                 backgroundColor: Colors.red
               ),
-              onPressed: () {},
+              onPressed: () async {
+                await GoogleSignIn().signOut();
+                await FirebaseAuth.instance.signOut();
+                
+                if(context.mounted) {
+                  Navigator.pop(context);
+                }
+              },
               child: Text(
                 "Log Out",
                 style: Theme.of(context).textTheme.bodySmall!.copyWith(
