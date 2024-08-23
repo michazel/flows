@@ -1,4 +1,5 @@
-import 'package:flows/register/bloc/pass_verif_bloc.dart';
+import 'package:flows/register/login_bloc/login_pass_bloc.dart';
+import 'package:flows/register/register_bloc/register_pass_bloc.dart';
 import 'package:flows/register/email_auth.dart';
 import 'package:flows/register/google_auth.dart';
 import 'package:flows/register/login_page.dart';
@@ -63,14 +64,15 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                     contentPadding: const EdgeInsets.all(10)
                   ),
-                  style: Theme.of(context).textTheme.bodySmall
+                  style: Theme.of(context).textTheme.bodySmall,
+                  keyboardType: TextInputType.emailAddress,
                 ),
               ]
             ),
             const SizedBox(  
               height: 15,
             ),
-            BlocBuilder<PassVerifBloc, PassVerifState>(
+            BlocBuilder<PassVerifBloc, RegisterPassState>(
               builder: (context, state) => Column(  
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
@@ -83,7 +85,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextField( 
                     controller: passwordController,
                     onChanged: (value) {
-                      bloc.add(NgetikPass(
+                      bloc.add(NgetikRegistPass(
                         password: value,
                         verifPass: state.verifPass
                       ));
@@ -96,7 +98,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       contentPadding: const EdgeInsets.all(10),
                       suffixIcon: IconButton(  
                         onPressed: () {
-                          bloc.add(NutupPass( 
+                          bloc.add(NutupRegistPass( 
                             password: state.password,
                             verifPass: state.verifPass
                           ));
@@ -105,6 +107,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       )
                     ),
                     style: Theme.of(context).textTheme.bodySmall,
+                    keyboardType: TextInputType.visiblePassword,
                     obscureText: state.tutupPass,
                   ),
                   const SizedBox(  
@@ -113,7 +116,7 @@ class _RegisterPageState extends State<RegisterPage> {
                   TextField(  
                     controller: verifPasswordController,
                     onChanged: (value) {
-                      bloc.add(NgetikVerifPass(
+                      bloc.add(NgetikRegistVerifPass(
                         verifPass: value,
                         password: state.password
                       ));
@@ -126,12 +129,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       contentPadding: const EdgeInsets.all(10),
                       suffixIcon: IconButton(  
                         onPressed: () {
-                          bloc.add(NutupVerifPass( 
+                          bloc.add(NutupRegistVerifPass( 
                             password: state.password,
                             verifPass: state.verifPass
                           ));
                         },
-                        icon: (state.tutupVerifPass) ? const Icon(Icons.visibility) : const Icon(Icons.visibility_off)
+                        icon: (state.tutupVerifPass) 
+                          ? const Icon(Icons.visibility) 
+                          : const Icon(Icons.visibility_off)
                       ),
                       focusedBorder: OutlineInputBorder(  
                         borderRadius: BorderRadius.circular(12),
@@ -147,6 +152,7 @@ class _RegisterPageState extends State<RegisterPage> {
                       )
                     ),
                     style: Theme.of(context).textTheme.bodySmall,
+                    keyboardType: TextInputType.visiblePassword,
                     obscureText: state.tutupVerifPass,
                   ),
                   const SizedBox(  
@@ -229,7 +235,10 @@ class _RegisterPageState extends State<RegisterPage> {
                 Navigator.push(  
                   context, 
                   MaterialPageRoute(  
-                    builder: (context) => const LoginPage()
+                    builder: (context) => BlocProvider(  
+                      create: (context) => LoginPassBloc(),
+                      child: const LoginPage()
+                    )
                   )
                 );
               },

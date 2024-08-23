@@ -1,8 +1,9 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flows/mainPage/main_page.dart';
+import 'package:flows/register/login_bloc/login_pass_bloc.dart';
 import 'package:flows/register/login_page.dart';
 import 'package:flows/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 void main() async {
@@ -19,22 +20,25 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(  
-      home: const MainPage(),
-      theme: ThemeData(  
-        textTheme: GoogleFonts.robotoCondensedTextTheme().copyWith(
-          bodyLarge: GoogleFonts.roboto(  
-            fontSize: 26,
-          ),
-          bodyMedium: GoogleFonts.roboto(  
-            fontSize: 18
-          ),
-          bodySmall: GoogleFonts.roboto(  
-            fontSize: 16
+    return BlocProvider(
+      create: (context) => LoginPassBloc(),
+      child: MaterialApp(  
+        home: const LoginPage(),
+        theme: ThemeData(  
+          textTheme: GoogleFonts.robotoCondensedTextTheme().copyWith(
+            bodyLarge: GoogleFonts.roboto(  
+              fontSize: 26,
+            ),
+            bodyMedium: GoogleFonts.roboto(  
+              fontSize: 18
+            ),
+            bodySmall: GoogleFonts.roboto(  
+              fontSize: 16
+            )
           )
-        )
+        ),
+        debugShowCheckedModeBanner: false,
       ),
-      debugShowCheckedModeBanner: false,
     );
   }
 }

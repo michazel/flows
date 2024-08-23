@@ -1,4 +1,5 @@
-import 'package:flows/register/bloc/pass_verif_bloc.dart';
+import 'package:flows/register/login_bloc/login_pass_bloc.dart';
+import 'package:flows/register/register_bloc/register_pass_bloc.dart';
 import 'package:flows/register/email_auth.dart';
 import 'package:flows/register/google_auth.dart';
 import 'package:flows/register/register_page.dart';
@@ -24,6 +25,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    LoginPassBloc bloc = BlocProvider.of<LoginPassBloc>(context);
+
     return Scaffold(  
       body: Padding(
         padding: const EdgeInsets.only(left: 15, right: 15),
@@ -65,7 +68,8 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     contentPadding: const EdgeInsets.all(10)
                   ),
-                  style: Theme.of(context).textTheme.bodySmall
+                  style: Theme.of(context).textTheme.bodySmall,
+                  keyboardType: TextInputType.emailAddress,
                 ),
               ]
             ),
@@ -81,17 +85,28 @@ class _LoginPageState extends State<LoginPage> {
                     color: Colors.grey
                   )
                 ),
-                TextField(  
-                  controller: passwordController,
-                  decoration: InputDecoration(  
-                    hintText: "Input Password anda",
-                    border: OutlineInputBorder( 
-                      borderRadius: BorderRadius.circular(12),
+                BlocBuilder<LoginPassBloc, LoginPassState>(
+                  builder: (context, state) => TextField(  
+                    controller: passwordController,
+                    decoration: InputDecoration(  
+                      hintText: "Input Password anda",
+                      border: OutlineInputBorder( 
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      suffixIcon: IconButton(  
+                        onPressed: () {
+                          bloc.add(NutupLoginPass());
+                        },
+                        icon: (state.tutupPass) 
+                          ? const Icon(Icons.visibility) 
+                          : const Icon(Icons.visibility_off)
+                      ),
+                      contentPadding: const EdgeInsets.all(10)
                     ),
-                    contentPadding: const EdgeInsets.all(10)
+                    style: Theme.of(context).textTheme.bodySmall,
+                    keyboardType: TextInputType.visiblePassword,
+                    obscureText: state.tutupPass,
                   ),
-                  style: Theme.of(context).textTheme.bodySmall,
-                  obscureText: true,
                 ),
               ]
             ),

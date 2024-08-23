@@ -1,7 +1,7 @@
-part of 'pass_verif_bloc.dart';
+part of 'register_pass_bloc.dart';
 
 @immutable
-sealed class PassVerifState {
+sealed class RegisterPassState {
   final bool panjang;
   final bool angka;
   final bool besar;
@@ -12,7 +12,7 @@ sealed class PassVerifState {
   final String verifPass;
   final Color color;
 
-  const PassVerifState({
+  const RegisterPassState({
     required this.angka, 
     required this.panjang, 
     required this.besar,
@@ -25,7 +25,7 @@ sealed class PassVerifState {
   }) : super();
 }
 
-final class PassVerifInitial extends PassVerifState {
+final class PassVerifInitial extends RegisterPassState {
   const PassVerifInitial({
     required super.angka, 
     required super.panjang, 

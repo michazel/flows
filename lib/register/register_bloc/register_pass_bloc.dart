@@ -2,10 +2,10 @@ import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 
 
-part 'pass_verif_event.dart';
-part 'pass_verif_state.dart';
+part 'register_pass_event.dart';
+part 'register_pass_state.dart';
 
-class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
+class PassVerifBloc extends Bloc<RegisterPassEvent, RegisterPassState> {
   PassVerifBloc() : super(const PassVerifInitial(
     panjang: false,
     angka: false,
@@ -17,7 +17,7 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
     verifPass: "",
     color: Colors.black
   )) {
-    on<NgetikPass>((event, emit) {
+    on<NgetikRegistPass>((event, emit) {
       final bool isPanjang = event.password.length >= 8;
       final bool hasAngka = RegExp(r'\d').hasMatch(event.password);
       final bool hasBesar = RegExp(r'[A-Z]').hasMatch(event.password);
@@ -36,7 +36,7 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
       ));
     });
 
-    on<NgetikVerifPass>((event, emit) {
+    on<NgetikRegistVerifPass>((event, emit) {
       final bool isKembar = event.password == event.verifPass;
 
       emit(PassVerifInitial(  
@@ -52,7 +52,7 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
       ));
     });
 
-    on<NutupPass>((event, emit) {
+    on<NutupRegistPass>((event, emit) {
       final bool isTutupPass = (state.tutupPass) ? false : true;
 
       emit(PassVerifInitial(  
@@ -68,7 +68,7 @@ class PassVerifBloc extends Bloc<PassVerifEvent, PassVerifState> {
       ));
     });
 
-    on<NutupVerifPass>((event, emit) {
+    on<NutupRegistVerifPass>((event, emit) {
       final bool isTutupVerifPass = (state.tutupVerifPass) ? false : true;
 
       emit(PassVerifInitial(  

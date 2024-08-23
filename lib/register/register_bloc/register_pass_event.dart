@@ -1,39 +1,39 @@
-part of 'pass_verif_bloc.dart';
+part of 'register_pass_bloc.dart';
 
 @immutable
-sealed class PassVerifEvent {
+sealed class RegisterPassEvent {
   final String password;
   final String verifPass;
 
-  const PassVerifEvent({
+  const RegisterPassEvent({
     required this.password, 
     required this.verifPass
   });
 }
 
-class NgetikPass extends PassVerifEvent {
-  const NgetikPass({
+class NgetikRegistPass extends RegisterPassEvent {
+  const NgetikRegistPass({
     required super.password,
     required super.verifPass
   }) : super();
 }
 
-class NgetikVerifPass extends PassVerifEvent {
-  const NgetikVerifPass({
+class NgetikRegistVerifPass extends RegisterPassEvent {
+  const NgetikRegistVerifPass({
     required super.password,
     required super.verifPass
   }) : super();
 }
 
-class NutupPass extends PassVerifEvent {
-  const NutupPass({
+class NutupRegistPass extends RegisterPassEvent {
+  const NutupRegistPass({
     required super.password,
     required super.verifPass
   }) : super();
 }
 
-class NutupVerifPass extends PassVerifEvent {
-  const NutupVerifPass({
+class NutupRegistVerifPass extends RegisterPassEvent {
+  const NutupRegistVerifPass({
     required super.password,
     required super.verifPass
   }) : super();
