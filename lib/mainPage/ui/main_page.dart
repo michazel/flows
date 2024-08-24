@@ -1,6 +1,6 @@
-import 'package:flows/mainPage/analisis_page.dart';
-import 'package:flows/mainPage/log_page.dart';
-import 'package:flows/mainPage/setting_page.dart';
+import 'package:flows/mainPage/ui/analisis_page.dart';
+import 'package:flows/mainPage/ui/log_page.dart';
+import 'package:flows/mainPage/ui/setting_page.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatelessWidget {

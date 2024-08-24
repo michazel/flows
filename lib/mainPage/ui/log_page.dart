@@ -1,5 +1,5 @@
-import 'package:flows/mainPage/input_page.dart';
-import 'package:flows/mainPage/log.dart';
+import 'package:flows/mainPage/ui/input_page.dart';
+import 'package:flows/mainPage/ui/log.dart';
 import 'package:flutter/material.dart';
 
 class LogPage extends StatelessWidget {

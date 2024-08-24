@@ -1,8 +1,8 @@
 import 'package:flows/register/login_bloc/login_pass_bloc.dart';
 import 'package:flows/register/register_bloc/register_pass_bloc.dart';
-import 'package:flows/register/email_auth.dart';
-import 'package:flows/register/google_auth.dart';
-import 'package:flows/register/register_page.dart';
+import 'package:flows/register/auth/email_auth.dart';
+import 'package:flows/register/auth/google_auth.dart';
+import 'package:flows/register/ui/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

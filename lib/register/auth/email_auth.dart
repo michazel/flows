@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flows/mainPage/main_page.dart';
+import 'package:flows/mainPage/ui/main_page.dart';
 import 'package:flutter/material.dart';
 
 class EmailAuth {

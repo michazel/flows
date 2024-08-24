@@ -1,5 +1,5 @@
-import 'package:flows/mainPage/circular_progres.dart';
-import 'package:flows/mainPage/input_page.dart';
+import 'package:flows/mainPage/ui/circular_progres.dart';
+import 'package:flows/mainPage/ui/input_page.dart';
 import 'package:flutter/material.dart';
 
 class AnalisisPage extends StatelessWidget {
