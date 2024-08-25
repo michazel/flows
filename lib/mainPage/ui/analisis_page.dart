@@ -1,57 +1,112 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flows/mainPage/database.dart';
+import 'package:flows/mainPage/saldo_bloc/saldo_bloc.dart';
 import 'package:flows/mainPage/ui/circular_progres.dart';
 import 'package:flows/mainPage/ui/input_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnalisisPage extends StatelessWidget {
   const AnalisisPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SaldoBloc bloc = BlocProvider.of<SaldoBloc>(context);
+
     return Padding(
       padding: const EdgeInsets.only(right: 15, left: 15, top: 20),
       child: Stack(
         children: [
           ListView(  
             children: <Widget>[
-              Container(  
+              StreamBuilder<QuerySnapshot>(  
+                stream: Database.collection.snapshots(),
+                builder: (_, snapshot) {
+                  if(snapshot.hasData) {
+                    double pengeluaran = 0;
+                    double pendapatan = 0;
+
+                    snapshot.data!.docs.expand((e) {
+                      Map<String, dynamic> data = e.data() as Map<String, dynamic>;
+                      Map<String, dynamic> transaksi = data['transaksi'] as Map<String, dynamic>;
+                      
+                      transaksi.forEach((key, value) {
+                        pendapatan += (value['pendapatan'] as int).toDouble();
+                        pengeluaran += (value['pengeluaran'] as int).toDouble();
+                      });
+
+                      bloc.add(Reload(  
+                        pendapatan: pendapatan,
+                        pengeluaran: pengeluaran
+                      ));
+                      return <Widget>[];
+                    }).toList();
+                  }
+                  return const SizedBox();
+                }
+              ),
+              SizedBox(  
                 width: MediaQuery.of(context).size.width,
                 height: 300,
-                decoration: const BoxDecoration(  
-                  color: Colors.amber
-                ),
-                child: const Center(  
-                  child: CircularProgress(progress: 1 + (2 - (150000 / 100000)))
+                child: Center(  
+                  child: BlocBuilder<SaldoBloc, SaldoState>(
+                    builder: (_, state) => CircularProgress(
+                      progress: 1 + ((state.pendapatan / state.pengeluaran) - 2)
+                    ),
+                  )
                 )
               ),
               const SizedBox(  
                 height: 20,
               ),
-              const Row(  
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Column(  
-                    children: <Widget>[
-                      Text("Pengeluaran"),
-                      Text("Rp. 100.000")
-                    ]
-                  ),
-                  Column(  
-                    children: <Widget>[
-                      Text("Pemasukan"),
-                      Text("Rp. 150.000")
-                    ]
-                  )
-                ]
+              BlocBuilder<SaldoBloc, SaldoState>(
+                builder: (_, state) => Row(  
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    Column(  
+                      children: <Widget>[
+                        Text(
+                          "Pengeluaran",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        Text(
+                          "Rp. ${state.pengeluaran}",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )
+                      ]
+                    ),
+                    Column(  
+                      children: <Widget>[
+                        Text(
+                          "Pemasukan",
+                          style: Theme.of(context).textTheme.bodyMedium,
+                        ),
+                        Text(
+                          "Rp. ${state.pendapatan}",
+                          style: Theme.of(context).textTheme.bodySmall,
+                        )
+                      ]
+                    )
+                  ]
+                ),
               ),
               const SizedBox(  
                 height: 20,
               ),
-              const Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text("Balanced"),
-                  Text("50.000")
-                ]
+              BlocBuilder<SaldoBloc, SaldoState>(
+                builder: (_, state) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    Text(
+                      "Balanced",
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
+                    Text(
+                      "Rp. ${state.pendapatan - state.pengeluaran}",
+                      style: Theme.of(context).textTheme.bodySmall,
+                    )
+                  ]
+                ),
               )
             ]
           ),

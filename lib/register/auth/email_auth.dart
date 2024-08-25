@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flows/mainPage/log_bloc/click_log_bloc.dart';
+import 'package:flows/mainPage/saldo_bloc/saldo_bloc.dart';
 import 'package:flows/mainPage/ui/main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class EmailAuth {
   final String email;
@@ -21,7 +24,17 @@ class EmailAuth {
           Navigator.push(  
             context, 
             MaterialPageRoute(  
-              builder: (context) => const MainPage()
+              builder: (context) => MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (_) => ClickLogBloc(),
+                ),
+                BlocProvider(
+                  create: (_) => SaldoBloc(),
+                ),
+              ],
+              child: const MainPage()
+            )
             )
           );
         }
@@ -61,7 +74,17 @@ class EmailAuth {
               Navigator.push(  
                 context, 
                 MaterialPageRoute(  
-                  builder: (context) => const MainPage()
+                  builder: (context) => MultiBlocProvider(
+                  providers: [
+                    BlocProvider(
+                      create: (_) => ClickLogBloc(),
+                    ),
+                    BlocProvider(
+                      create: (_) => SaldoBloc(),
+                    ),
+                  ],
+                  child: const MainPage()
+                )
                 )
               );
             }

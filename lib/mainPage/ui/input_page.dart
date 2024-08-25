@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flows/mainPage/database.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -103,7 +105,21 @@ class _InputPageState extends State<InputPage> {
                     child: SizedBox(  
                       width: 200,
                       child: ElevatedButton(  
-                        onPressed: () {},
+                        onPressed: () async {
+                          await Database( 
+                            id: FirebaseAuth.instance.currentUser!.uid,
+                            pendapatan: (pendapatanController.text == '') 
+                              ? 0 
+                              : int.parse(pendapatanController.text),
+                            pengeluaran: (pengeluaranController.text == '')
+                             ? 0
+                             : int.parse(pengeluaranController.text),
+                            deskripsi:  deskripsiController.text
+                          ).addTransaksi();
+
+                          if(!context.mounted) return;
+                          Navigator.pop(context);
+                        },
                         child: const Text("Input")
                       )
                     ),
