@@ -1,9 +1,18 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flows/register/auth/email_auth.dart';
+import 'package:flows/register/auth/google_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingPage extends StatelessWidget {
   const SettingPage({super.key});
+
+  void notif(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+      backgroundColor: Colors.orange.shade900,
+      content: Text(message.toString())
+    ));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +34,12 @@ class SettingPage extends StatelessWidget {
               SizedBox(  
                 width: 150,
                 child: ElevatedButton(  
-                  onPressed: () {},
+                  onPressed: () {
+                    const EmailAuth(
+                      email: "mchrist2004@gmail.com", 
+                      password: "apa ajaa1M"
+                    ).linkWith(notif, context);
+                  },
                   child: Text( 
                     "Gmail",
                     style: Theme.of(context).textTheme.bodySmall
@@ -36,7 +50,9 @@ class SettingPage extends StatelessWidget {
               SizedBox(  
                 width: 150,
                 child: ElevatedButton(  
-                  onPressed: () {},
+                  onPressed: () {
+                    GoogleAuth().signInAndSignUp(notif, context);
+                  },
                   child: Text( 
                     "Google",
                     style: Theme.of(context).textTheme.bodySmall

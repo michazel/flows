@@ -14,9 +14,9 @@ class RegisterPage extends StatefulWidget {
 }
 
 class _RegisterPageState extends State<RegisterPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController verifPasswordController = TextEditingController();
+  final TextEditingController emailController = TextEditingController(text: "");
+  final TextEditingController passwordController = TextEditingController(text: "");
+  final TextEditingController verifPasswordController = TextEditingController(text: "");
 
   void notif(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(

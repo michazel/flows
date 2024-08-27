@@ -103,4 +103,24 @@ class EmailAuth {
       pesan(context, "Silahkan logout dulu dari akun anda");
     }
   }
+
+  Future<void> linkWith(void Function(BuildContext, String) pesan, BuildContext context) async {
+    AuthCredential emailCredential = EmailAuthProvider.credential( 
+      email: email,
+      password: password
+    );
+
+    if(FirebaseAuth.instance.currentUser == null) {
+      try {
+        await FirebaseAuth.instance.currentUser!.linkWithCredential(emailCredential);
+        if(!context.mounted) return;
+        pesan(context, "Berasil ditautkan");
+      } catch (e) {
+        if(!context.mounted) return;
+        pesan(context, "Gagal menautkan dengan google");
+      }
+    } else {
+      pesan(context, "Sudah terhubung");
+    }
+  }
 }

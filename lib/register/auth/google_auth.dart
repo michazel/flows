@@ -44,6 +44,8 @@ class GoogleAuth {
         if(!context.mounted) return;
         pesan(context, "Ada Kesalahan Saat Masuk");
       }
+    } else {
+      pesan(context, "Sudah terhubung");
     }
   }
 }
