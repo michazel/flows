@@ -152,6 +152,8 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(  
               onPressed: () async {
                 await GoogleAuth().signInAndSignUp(notif, context);
+                // FirebaseAuth.instance.signOut();
+                // GoogleSignIn().signOut();
               },
               child: const Text("Google")
             ),

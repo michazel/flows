@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/database.dart';
 import 'package:flows/mainPage/saldo_bloc/saldo_bloc.dart';
 import 'package:flows/mainPage/ui/circular_progres.dart';
@@ -19,28 +20,25 @@ class AnalisisPage extends StatelessWidget {
         children: [
           ListView(  
             children: <Widget>[
-              StreamBuilder<QuerySnapshot>(  
-                stream: Database.collection.snapshots(),
+              StreamBuilder<DocumentSnapshot>(  
+                stream: Database.collection.doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
                 builder: (_, snapshot) {
-                  if(snapshot.hasData) {
+                  if(snapshot.hasData && snapshot.data!.exists) {
                     double pengeluaran = 0;
                     double pendapatan = 0;
 
-                    snapshot.data!.docs.expand((e) {
-                      Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-                      Map<String, dynamic> transaksi = data['transaksi'] as Map<String, dynamic>;
-                      
-                      transaksi.forEach((key, value) {
-                        pendapatan += (value['pendapatan'] as int).toDouble();
-                        pengeluaran += (value['pengeluaran'] as int).toDouble();
-                      });
+                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                    Map<String, dynamic> transaksi = data['transaksi'] as Map<String, dynamic>;
+                    
+                    transaksi.forEach((key, value) {
+                      pendapatan += (value['pendapatan'] as int).toDouble();
+                      pengeluaran += (value['pengeluaran'] as int).toDouble();
+                    });
 
-                      bloc.add(Reload(  
-                        pendapatan: pendapatan,
-                        pengeluaran: pengeluaran
-                      ));
-                      return <Widget>[];
-                    }).toList();
+                    bloc.add(Reload(  
+                      pendapatan: pendapatan,
+                      pengeluaran: pengeluaran
+                    ));
                   }
                   return const SizedBox();
                 }

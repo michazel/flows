@@ -19,7 +19,7 @@ class GoogleAuth {
             idToken: auth.idToken
           );
 
-          FirebaseAuth.instance.signInWithCredential(credential);
+          await FirebaseAuth.instance.signInWithCredential(credential);
 
           if(context.mounted) {
             Navigator.push(  

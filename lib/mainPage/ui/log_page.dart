@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/log_bloc/click_log_bloc.dart';
 import 'package:flows/mainPage/database.dart';
 import 'package:flows/mainPage/ui/input_page.dart';
@@ -19,25 +20,10 @@ class LogPage extends StatelessWidget {
         children: <Widget>[
           ListView(  
             children: <Widget>[
-              StreamBuilder<QuerySnapshot>(  
-                stream: Database.collection.snapshots(),
+              StreamBuilder<DocumentSnapshot>(  
+                stream: Database.collection.doc(FirebaseAuth.instance.currentUser!.uid).snapshots(),
                 builder: (_, snapshot) {
-                  if(snapshot.hasData) {
-                    return Column(
-                      children: snapshot.data!.docs.expand((e) {
-                        Map<String, dynamic> data = e.data() as Map<String, dynamic>;
-                        Map<String, dynamic> transaksi = data['transaksi'] as Map<String, dynamic>;
-
-                        return transaksi.entries.map((e) => Log(  
-                          pendapatan: e.value['pendapatan'],
-                          pengeluaran: e.value['pengeluaran'],
-                          id: e.key,
-                          deskripsi: e.value['deskripsi'],
-                          bloc: bloc,
-                        )).toList();
-                      }).toList()
-                    );
-                  } else {
+                  if(snapshot.connectionState == ConnectionState.waiting) {
                     return const Center(
                       child: SizedBox(  
                         height: 40,
@@ -45,7 +31,21 @@ class LogPage extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       ),
                     );
-                  }
+                  } else if(snapshot.hasData && snapshot.data!.exists) {
+                    Map<String, dynamic> data = snapshot.data!.data() as Map<String, dynamic>;
+                    Map<String, dynamic> transaksi = data['transaksi'] as Map<String, dynamic>;
+
+                    return Column(
+                      children: transaksi.entries.map((e) => Log(  
+                        pendapatan: e.value['pendapatan'],
+                        pengeluaran: e.value['pengeluaran'],
+                        id: e.key,
+                        deskripsi: e.value['deskripsi'],
+                        bloc: bloc,
+                      )).toList()
+                    );
+                  } 
+                  return const SizedBox();
                 }
               )
             ]
