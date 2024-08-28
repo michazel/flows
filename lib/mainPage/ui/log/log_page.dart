@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/log_bloc/click_log_bloc.dart';
 import 'package:flows/mainPage/database.dart';
 import 'package:flows/mainPage/ui/input_page.dart';
-import 'package:flows/mainPage/ui/log.dart';
+import 'package:flows/mainPage/ui/log/log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

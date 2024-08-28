@@ -1,4 +1,4 @@
-import 'package:flows/mainPage/ui/email_link.dart';
+import 'package:flows/mainPage/ui/setting/email_link.dart';
 import 'package:flows/register/auth/auto_auth.dart';
 import 'package:flows/register/auth/google_auth.dart';
 import 'package:flows/register/register_bloc/register_pass_bloc.dart';
