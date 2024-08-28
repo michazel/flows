@@ -36,7 +36,7 @@ class CircularProgressPainter extends CustomPainter {
     const startAngle = -pi / 2;
 
     final bluePaint = Paint()
-      ..color = Colors.green
+      ..color = Colors.grey
       ..style = PaintingStyle.stroke
       ..strokeWidth = 40;
 
@@ -51,7 +51,7 @@ class CircularProgressPainter extends CustomPainter {
 
     if (progress > 1.0) {
       final redPaint = Paint()
-        ..color = Colors.red
+        ..color = Colors.green
         ..style = PaintingStyle.stroke
         ..strokeWidth = 40;
 
@@ -63,7 +63,7 @@ class CircularProgressPainter extends CustomPainter {
         false,
         redPaint,
       );
-    }if (progress > 2.0) {
+    } if (progress > 2.0) {
       final greenPaint = Paint()
         ..color = Colors.amber
         ..style = PaintingStyle.stroke
@@ -76,6 +76,20 @@ class CircularProgressPainter extends CustomPainter {
         purpleSweepAngle,
         false,
         greenPaint,
+      );
+    } if (progress > 3.0) {
+      final purplePaint = Paint()
+        ..color = Colors.red
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 40;
+
+      final purpleSweepAngle = 2 * pi * (progress - 3.0);
+      canvas.drawArc(
+        Rect.fromCircle(center: center, radius: radius),
+        startAngle + blueSweepAngle + min(2 * pi, 2 * pi * (progress - 1.0)) + min(2 * pi, 2 * pi * (progress - 2.0)),
+        purpleSweepAngle,
+        false,
+        purplePaint,
       );
     }
   }

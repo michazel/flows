@@ -49,8 +49,10 @@ class AnalisisPage extends StatelessWidget {
                 child: Center(  
                   child: BlocBuilder<SaldoBloc, SaldoState>(
                     builder: (_, state) => CircularProgress(
-                      progress: (state.pengeluaran == 0) ? 1
-                        : (1 + (state.pengeluaran / state.pendapatan))
+                      progress: (state.pengeluaran == 0.0 && state.pendapatan == 0.0) ? 1
+                        : (state.pendapatan > 0 && state.pengeluaran == 0.0) ? 2
+                        : (state.pendapatan == 0.0 && state.pengeluaran > 0) ? 3
+                        : (2 + (state.pengeluaran / state.pendapatan))
                     ),
                   )
                 )
