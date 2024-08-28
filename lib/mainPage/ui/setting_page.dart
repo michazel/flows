@@ -1,11 +1,19 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flows/register/auth/email_auth.dart';
+import 'package:flows/mainPage/ui/email_link.dart';
 import 'package:flows/register/auth/google_auth.dart';
+import 'package:flows/register/register_bloc/register_pass_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-class SettingPage extends StatelessWidget {
+class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
+
+  @override
+  State<SettingPage> createState() => _SettingPageState();
+}
+
+class _SettingPageState extends State<SettingPage> {
 
   void notif(BuildContext context, String message) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -35,10 +43,15 @@ class SettingPage extends StatelessWidget {
                 width: 150,
                 child: ElevatedButton(  
                   onPressed: () {
-                    const EmailAuth(
-                      email: "mchrist2004@gmail.com", 
-                      password: "apa ajaa1M"
-                    ).linkWith(notif, context);
+                    Navigator.push(  
+                      context,
+                      MaterialPageRoute(  
+                        builder: (context) => BlocProvider(
+                          create: (context) => PassVerifBloc(),
+                          child: const EmailLink()
+                        )
+                      )
+                    );
                   },
                   child: Text( 
                     "Gmail",

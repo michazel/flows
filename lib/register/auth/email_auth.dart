@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/log_bloc/click_log_bloc.dart';
 import 'package:flows/mainPage/saldo_bloc/saldo_bloc.dart';
 import 'package:flows/mainPage/ui/main_page.dart';
+import 'package:flows/register/login_bloc/login_pass_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -110,17 +111,13 @@ class EmailAuth {
       password: password
     );
 
-    if(FirebaseAuth.instance.currentUser == null) {
-      try {
-        await FirebaseAuth.instance.currentUser!.linkWithCredential(emailCredential);
-        if(!context.mounted) return;
-        pesan(context, "Berasil ditautkan");
-      } catch (e) {
-        if(!context.mounted) return;
-        pesan(context, "Gagal menautkan dengan google");
-      }
-    } else {
-      pesan(context, "Sudah terhubung");
+    try {
+      await FirebaseAuth.instance.currentUser!.linkWithCredential(emailCredential);
+      if(!context.mounted) return;
+      pesan(context, "Berasil ditautkan");
+    } catch (e) {
+      if(!context.mounted) return;
+      pesan(context, "Gagal menautkan dengan google");
     }
   }
 }

@@ -9,11 +9,12 @@ class LoginPassBloc extends Bloc<LoginPassEvent, LoginPassState> {
     tutupPass: true
   )) {
     on<NutupLoginPass>((event, emit) {
-      final bool isTutupPass = (state.tutupPass) ? false : true;
+      final bool isTutupPass = !state.tutupPass;
 
       emit(LoginPassInitial(  
         tutupPass: isTutupPass
       ));
+      print("Di bloc ${state.tutupPass}");
     });
   }
 }

@@ -1,19 +1,16 @@
-import 'package:flows/register/login_bloc/login_pass_bloc.dart';
 import 'package:flows/register/register_bloc/register_pass_bloc.dart';
 import 'package:flows/register/auth/email_auth.dart';
-import 'package:flows/register/auth/google_auth.dart';
-import 'package:flows/register/ui/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterPage extends StatefulWidget {
-  const RegisterPage({super.key});
+class EmailLink extends StatefulWidget {
+  const EmailLink({super.key});
 
   @override
-  State<RegisterPage> createState() => _RegisterPageState();
+  State<EmailLink> createState() =>_RegisterPageState();
 }
 
-class _RegisterPageState extends State<RegisterPage> {
+class _RegisterPageState extends State<EmailLink> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController verifPasswordController = TextEditingController();
@@ -37,13 +34,13 @@ class _RegisterPageState extends State<RegisterPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Sign Up",
+                  "Link With",
                   style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                     fontWeight: FontWeight.bold
                   )
                 ),
                 Text(
-                  "Yok daftar dulu yok",
+                  "Tautkan akun anda",
                   style: Theme.of(context).textTheme.bodyMedium
                 ),
                 const SizedBox(  
@@ -199,60 +196,19 @@ class _RegisterPageState extends State<RegisterPage> {
                             await EmailAuth(  
                               email: emailController.text,
                               password: passwordController.text
-                            ).signUp(notif, context);
+                            ).linkWith(notif, context);
+
+                            if(!context.mounted) return;
+                            Navigator.pop(context);
                           } 
                         } : null,
-                        child: const Text("Sign Up")
+                        child: const Text("Tautkan")
                       ),
                     ),
                   ),
                 ]
               ),
             ),
-            const SizedBox(  
-              height: 20,
-            ),
-            Align(  
-              alignment: Alignment.center,
-              child: Text(
-                "- Or sign Up with -",
-                style: Theme.of(context).textTheme.bodySmall
-              ),
-            ),
-            const SizedBox(  
-              height: 20,
-            ),
-            ElevatedButton(  
-              onPressed: () async {
-                await GoogleAuth().signInAndSignUp(notif, context);
-              },
-              child: const Text("Google")
-            ),
-            const SizedBox(  
-              height: 20,
-            ),
-            GestureDetector(  
-              onTap: () {
-                Navigator.push(  
-                  context, 
-                  MaterialPageRoute(  
-                    builder: (context) => BlocProvider(  
-                      create: (context) => LoginPassBloc(),
-                      child: const LoginPage()
-                    )
-                  )
-                );
-              },
-              child: Align(  
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Sudah punya akun?",
-                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                    fontSize: 12
-                  )
-                )
-              )
-            )
           ]
         ),
       )
