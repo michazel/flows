@@ -1,10 +1,9 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/ui/email_link.dart';
+import 'package:flows/register/auth/auto_auth.dart';
 import 'package:flows/register/auth/google_auth.dart';
 import 'package:flows/register/register_bloc/register_pass_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 
 class SettingPage extends StatefulWidget {
   const SettingPage({super.key});
@@ -85,8 +84,7 @@ class _SettingPageState extends State<SettingPage> {
                 backgroundColor: Colors.red
               ),
               onPressed: () async {
-                await GoogleSignIn().signOut();
-                await FirebaseAuth.instance.signOut();
+                await AutoAuth().logout();
                 
                 if(context.mounted) {
                   Navigator.pop(context);

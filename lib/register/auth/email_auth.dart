@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flows/mainPage/log_bloc/click_log_bloc.dart';
 import 'package:flows/mainPage/saldo_bloc/saldo_bloc.dart';
 import 'package:flows/mainPage/ui/main_page.dart';
-import 'package:flows/register/login_bloc/login_pass_bloc.dart';
+import 'package:flows/register/auth/auto_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,6 +20,7 @@ class EmailAuth {
           email: email, 
           password: password
         );
+        await AutoAuth().saveLogin();
 
         if(context.mounted) {
           Navigator.push(  
@@ -70,6 +71,7 @@ class EmailAuth {
           if(FirebaseAuth.instance.currentUser?.emailVerified ?? false) {
             timer!.cancel();
             poltime.cancel();
+            await AutoAuth().saveLogin();
 
             if(context.mounted) {
               Navigator.push(  
@@ -117,7 +119,7 @@ class EmailAuth {
       pesan(context, "Berasil ditautkan");
     } catch (e) {
       if(!context.mounted) return;
-      pesan(context, "Gagal menautkan dengan google");
+      pesan(context, "Email sudah tertaut");
     }
   }
 }
